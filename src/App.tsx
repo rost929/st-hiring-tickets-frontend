@@ -1,23 +1,51 @@
-function App() {
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { eventStore } from './stores/EventsStore';
+import { settingStore } from './stores/StettingsStore'; // Importa el store para la SettingsPage
+import EventsPage from './pages/EventsPage';
+import SettingsPage from './pages/SettingsPage';
+
+const App: React.FC = () => {
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-    >
-      <h1>See Tickets </h1>
-      <div className="card">
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/events"
+          element={
+            <Provider store={eventStore}>
+              <EventsPage />
+            </Provider>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <Provider store={settingStore}>
+              <SettingsPage />
+            </Provider>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
+
+
+/* import React from 'react';
+import { Provider } from 'react-redux';
+import { eventStore } from './stores/EventsStore';
+import EventsPage from './pages/EventsPage';
+
+const App: React.FC = () => {
+  return (
+      <Provider store={eventStore}>
+        <EventsPage />
+      </Provider>
+    );
+}
+
+export default App; */
